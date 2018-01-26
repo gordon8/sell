@@ -1,12 +1,12 @@
 <template>
-    <div class="header">
-      i am a header
-    </div>
+  <div class="header">
+    I am header!
+  </div>
 </template>
 
 <script>
     export default {
-        name: "header"
+//        name: "header"
     }
 </script>
 
