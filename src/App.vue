@@ -12,6 +12,7 @@
   import header from '@/components/header/header'
   import tab from '@/components/tab/tab'
 
+
   export default {
     components: {
       'v-header': header,
