@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <v-tab></v-tab>
     <div class="content">
       <router-view></router-view>
@@ -14,10 +14,25 @@
 
 
   export default {
+    data() {
+      return {
+        seller: {}
+      }
+    },
+    created() {
+      this.$http.get('/api/seller').then(response => {
+        console.log(response);
+        response = response.body;
+        if (response.errno == 0) {
+          this.seller = response.data;
+        }
+      })
+    },
     components: {
       'v-header': header,
       'v-tab': tab
     },
+
     name: 'App'
   }
 </script>

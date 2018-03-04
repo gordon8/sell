@@ -18,45 +18,8 @@
 </script>
 
 <style lang="scss" type="text/css" scoped>
-  /*@import '@/commom/css/common'*/
+  @import "../../common/css/common";
 
-  @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5) {
-    .border-1px {
-  &::after {
-     -webkit-transform: scaleY(0.7);
-     transform: scaleY(0.7);
-   }
-  }
-  }
-  @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2)  {
-    .border-1px {
-  &::after {
-     -webkit-transform: scaleY(0.5);
-     transform: scaleY(0.5);
-   }
-  }
-  }
-  @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)  {
-    .border-1px {
-  &::after {
-     -webkit-transform: scaleY(0.33);
-     transform: scaleY(0.33);
-   }
-  }
-  }
-
-  @mixin border-1px($color) {
-    position: relative;
-  &::after {
-     display: block;
-     position: absolute;
-     bottom: 0;
-     left: 0;
-     content: '';
-     width: 100%;
-     border-top: 1px solid $color;
-   }
-  }
   .tab {
     display: flex;
     width: 100%;
