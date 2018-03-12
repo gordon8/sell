@@ -29,9 +29,16 @@
     <transition name="fade">
       <div class="detail">
         <div class="detail-wrap">
-          <div class="title">{{seller.name}}</div>
+          <div class="detial-main">
+            <div class="title">{{seller.name}}</div>
+
+          </div>
+
         </div>
-        <div class="detail-close">guan</div>
+        <div class="detail-close">
+          <i class="iconfont icon-close"></i>
+        </div>
+
 
       </div>
     </transition>
@@ -196,9 +203,10 @@
       z-index: 10;
       .detail-wrap {
         width: 100%;
-        min-height: 100%;
+        height: 100%;
         padding-top: 64px;
         padding-bottom: 64px;
+        box-sizing: border-box;
       }
       .detail-close {
         position: relative;
