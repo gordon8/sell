@@ -15,27 +15,51 @@
           <span class="desc">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div v-if="seller.supports && seller.supports.length > 0" class="support-count">
+      <div @click="showDetail" v-if="seller.supports && seller.supports.length > 0" class="support-count">
         {{seller.supports.length}}个
         <i class="iconfont icon-previewright"></i>
       </div>
     </div>
-    <div class="bulletin-wrap">
+    <div @click="showDetail" class="bulletin-wrap">
       <span class="icon bulletin"></span>
       <span class="text">{{seller.bulletin}}</span>
       <i class="iconfont icon-previewright"></i>
     </div>
     <div class="background" :style="{backgroundImage: 'url('+ seller.avatar + ')'}"></div>
     <transition name="fade">
-      <div class="detail">
+      <div v-show="detailShow" class="detail">
         <div class="detail-wrap">
           <div class="detial-main">
-            <div class="title">{{seller.name}}</div>
+            <h1 class="name">{{seller.name}}</h1>
+            <div class="star-wrap">
+              <v-star :size="48" :score="seller.score"></v-star>
+            </div>
+            <div class="supports-wrap">
+              <div class="title">
+                <div class="line"></div>
+                <div class="text">优惠信息</div>
+                <div class="line"></div>
+              </div>
+              <ul class="supports-list">
+                <li v-for="item in seller.supports" class="item" :key="item.type">
+                  <span :class="['icon',supportClassArr[item.type]]"></span>
+                  <span class="desc">{{item.description}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="bulletin">
+              <div class="title">
+                <div class="line"></div>
+                <div class="text">商家公告</div>
+                <div class="line"></div>
+              </div>
+              <div class="content">{{seller.bulletin}}</div>
+            </div>
 
           </div>
 
         </div>
-        <div class="detail-close">
+        <div @click="hideDetail" class="detail-close">
           <i class="iconfont icon-close"></i>
         </div>
 
@@ -46,6 +70,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import star from "@/components/star/star";
+
   export default {
     props: {
       seller: {
@@ -60,8 +86,20 @@
           'guarantee',
           'invoice',
           'special'
-        ]
+        ],
+        detailShow: false
       }
+    },
+    methods: {
+      showDetail() {
+        this.detailShow = true;
+      },
+      hideDetail() {
+        this.detailShow = false;
+      }
+    },
+    components: {
+      'v-star': star
     }
   }
 </script>
@@ -203,15 +241,98 @@
       z-index: 10;
       .detail-wrap {
         width: 100%;
-        height: 100%;
-        padding-top: 64px;
-        padding-bottom: 64px;
+        min-height: 100%;
+        padding: 64px 36px;
         box-sizing: border-box;
+        .name {
+          text-align: center;
+          font-size: 16px;
+          font-weight: 700;
+        }
+        .star-wrap {
+          margin-top: 16px;
+          .star {
+            text-align: center;
+          }
+        }
+        .supports-wrap {
+          margin-top: 28px;
+          .supports-list {
+            margin-top: 22px;
+            padding: 0 12px;
+            .item {
+              font-size: 0;
+              margin-bottom: 6px;
+              .icon {
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
+                vertical-align: top;
+                &.decrease {
+                  @include bg-image(decrease_1);
+                }
+                &.discount {
+                  @include bg-image(discount_1);
+                }
+                &.guarantee {
+                  @include bg-image(guarantee_1);
+                }
+                &.invoice {
+                  @include bg-image(invoice_1);
+                }
+                &.special {
+                  @include bg-image(special_1);
+                }
+              }
+              .desc {
+                display: inline-block;
+                font-size: 12px;
+                line-height: 16px;
+              }
+            }
+          }
+        }
+        .title {
+          display: flex;
+          .line {
+            position: relative;
+            top: -6px;
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          .text {
+            padding: 0 12px;
+            font-weight: 700;
+            font-size: 14px;
+          }
+        }
+        .bulletin {
+          margin-top: 26px;
+          .content {
+            margin-top: 24px;
+            padding: 0 12px;
+            font-size: 12px;
+            line-height: 2;
+          }
+        }
       }
       .detail-close {
         position: relative;
         margin: -64px auto 0;
+        text-align: center;
+        .iconfont {
+          font-size: 32px;
+          color: rgba(255, 255, 255, 0.5);
+        }
       }
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: all .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
     }
 
   }
