@@ -3,9 +3,8 @@
     <div class="menu-wrap">
       <ul class="menu-list">
         <li v-for="(item, index) in goods" class="menu-item" :key="index">
-          <div class="name-wrap border-1px">
-            <span :class="['icon', supportClassArr[item.type]]"></span>
-            <span class="name">{{item.name}}</span>
+          <div class="name-wrap">
+            <span :class="['icon', supportClassArr[item.type]]"></span><span class="name">{{item.name}}</span>
           </div>
         </li>
       </ul>
@@ -99,8 +98,35 @@
           display: table-cell;
           vertical-align: middle;
           @include border-1px(rgba(7, 17, 27, 0.1));
+          .icon {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin-top: 1px;
+            margin-right: 2px;
+            vertical-align: top;
+            &.decrease {
+              @include bg-image(decrease_3);
+            }
+            &.discount {
+              @include bg-image(discount_3);
+            }
+            &.guarantee {
+              @include bg-image(guarantee_3);
+            }
+            &.invoice {
+              @include bg-image(invoice_3);
+            }
+            &.special {
+              @include bg-image(special_3);
+            }
+
+          }
         }
       }
+    }
+    .foods-wrap {
+
     }
 
   }
