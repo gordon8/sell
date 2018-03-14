@@ -17,7 +17,7 @@
     export default {}
 </script>
 
-<style lang="scss" type="text/css" scoped>
+<style scoped lang="scss" rel="stylesheet/scss" type="text/scss">
   @import "../../common/css/common";
 
   .tab {
