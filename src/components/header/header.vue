@@ -167,8 +167,9 @@
           .desc {
             display: inline-block;
             margin-left: 4px;
+            padding-top: 2px;
             font-size: 10px;
-            line-height: 12px;
+            line-height: 10px;
           }
         }
       }
