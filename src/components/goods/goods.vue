@@ -1,43 +1,48 @@
 <template>
-  <div class="goods-wrap">
-    <div class="menu-wrap" ref="menuWrap">
-      <ul class="menu-list">
-        <li @click="selectMenu(index, $event)" v-for="(item, index) in goods" :class="['menu-item', currentIndex == index? 'current': '']" :key="index">
-          <div class="name-wrap">
-            <span v-if="supportClassArr[item.type]" :class="['icon', supportClassArr[item.type]]"></span><span class="name">{{item.name}}</span>
-          </div>
-        </li>
-      </ul>
+  <div>
+    <div class="goods-wrap">
+      <div class="menu-wrap" ref="menuWrap">
+        <ul class="menu-list">
+          <li @click="selectMenu(index, $event)" v-for="(item, index) in goods" :class="['menu-item', currentIndex == index? 'current': '']" :key="index">
+            <div class="name-wrap">
+              <span v-if="supportClassArr[item.type]" :class="['icon', supportClassArr[item.type]]"></span><span class="name">{{item.name}}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrap" ref="foodsWrap">
+        <ul class="foods-list">
+          <li v-for="(items, index) in goods" class="foods-items" :key="index" ref="foodItems">
+            <h2 class="title">{{items.name}}</h2>
+            <ul>
+              <li v-if="items" v-for="item in items.foods" class="foods-item" :key="item.name">
+                <div class="cover-wrap">
+                  <img :src="item.image" :alt="item.name" width="57" height="57">
+                </div>
+                <div class="detail-wrap">
+                  <h3 class="name">{{item.name}}</h3>
+                  <p v-if="item.description" class="desc">{{item.description}}</p>
+                  <p class="desc">
+                    <span class="sell-count">月售{{item.sellCount}}份</span><span class="rating">好评率{{item.rating}}%</span>
+                  </p>
+                  <p class="price">
+                    <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="foods-wrap" ref="foodsWrap">
-      <ul class="foods-list">
-        <li v-for="(items, index) in goods" class="foods-items" :key="index" ref="foodItems">
-          <h2 class="title">{{items.name}}</h2>
-          <ul>
-            <li v-if="items" v-for="item in items.foods" class="foods-item" :key="item.name">
-              <div class="cover-wrap">
-                <img :src="item.image" :alt="item.name" width="57" height="57">
-              </div>
-              <div class="detail-wrap">
-                <h3 class="name">{{item.name}}</h3>
-                <p v-if="item.description" class="desc">{{item.description}}</p>
-                <p class="desc">
-                  <span class="sell-count">月售{{item.sellCount}}份</span><span class="rating">好评率{{item.rating}}%</span>
-                </p>
-                <p class="price">
-                  <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
-                </p>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <shopcart></shopcart>
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
+  import shopcart from '@/components/shopcart/shopcart'
 
 
   const ERR_OK = 0;
@@ -105,7 +110,6 @@
         this.foodsScroll.on('scroll', (pos) => {
           // 判断避免下拉
           if (pos.y < 0) {
-            console.log(pos.y);
             this.scrollY = Math.abs(Math.round(pos.y));
           }
 
@@ -127,6 +131,9 @@
         this.foodsScroll.scrollToElement(el, 300);
 
       }
+    },
+    components: {
+      shopcart
     }
   }
 </script>
@@ -136,7 +143,7 @@
   .goods-wrap {
     position: absolute;
     top: 174px;
-    bottom: 46px;
+    bottom: 48px;
     display: flex;
     overflow: hidden;
     .menu-wrap {
