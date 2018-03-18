@@ -29,7 +29,7 @@
                     <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
                   </p>
                 </div>
-                <cartcontrol></cartcontrol>
+                <cartcontrol :food="item"></cartcontrol>
               </li>
             </ul>
           </li>
@@ -83,6 +83,13 @@
       },
       selectFoodList() {
         let res = [];
+        this.goods.forEach((item) => {
+          item.foods.forEach((food) => {
+            if (food.count > 0) {
+              res.push(food);
+            }
+          })
+        })
         return res;
       }
     },
@@ -151,6 +158,7 @@
     position: absolute;
     top: 174px;
     bottom: 48px;
+    width: 100%;
     display: flex;
     overflow: hidden;
     .menu-wrap {
@@ -208,6 +216,7 @@
       }
     }
     .foods-wrap {
+      flex: 1;
       .foods-items {
         .title {
           height: 26px;

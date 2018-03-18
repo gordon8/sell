@@ -1,22 +1,38 @@
 <template>
   <div class="cart-control">
-    <i class="iconfont icon-removecircle"></i>
-    <span class="add-num">1</span>
-    <i class="iconfont icon-addcircle"></i>
+    <i @click="removeCount" v-if="food.count > 0" class="iconfont icon-removecircle"></i>
+    <span v-if="food.count > 0" class="add-num">{{food.count}}</span>
+    <i @click="addCount" class="iconfont icon-addcircle"></i>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-    export default {
-        name: "cartcontrol",
-      props: {
-
+  import Vue from 'vue';
+  export default {
+    name: "cartcontrol",
+    props: {
+      food: {
+        type: Object
+      }
+    },
+    methods: {
+      addCount: function () {
+        if (this.food.count) {
+          this.food.count++;
+        } else {
+          Vue.set(this.food, 'count', 1);
+        }
       },
+      removeCount: function () {
+        this.food.count--;
+      }
     }
+  }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss" type="text/scss">
   @import "../../common/css/iconfont.css";
+
   .cart-control {
     position: absolute;
     right: 0;
