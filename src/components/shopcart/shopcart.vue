@@ -8,10 +8,10 @@
           </span>
         </span>
         <span class="total">¥20</span>
-        <span class="delivery">另需配送费4元</span>
+        <span class="delivery">另需配送费{{deliveryPrice}}元</span>
       </div>
       <div class="content-right">
-        <div class="pay">¥20元起送</div>
+        <div class="pay">¥{{minPrice}}元起送</div>
       </div>
     </div>
 
@@ -20,7 +20,17 @@
 
 <script type="text/ecmascript-6">
   export default {
-    name: "shopcart"
+    name: "shopcart",
+    props: {
+      deliveryPrice: {
+        type: Number,
+        default: 0
+      },
+      minPrice: {
+        type: Number,
+        default: 0
+      }
+    }
   }
 </script>
 

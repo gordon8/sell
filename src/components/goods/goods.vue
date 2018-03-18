@@ -29,13 +29,14 @@
                     <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
                   </p>
                 </div>
+                <cartcontrol></cartcontrol>
               </li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
-    <shopcart></shopcart>
+    <shopcart :selectFoodList="selectFoodList" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 
 </template>
@@ -43,6 +44,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopcart from '@/components/shopcart/shopcart'
+  import cartcontrol from '@/components/cartcontrol/cartcontrol'
 
 
   const ERR_OK = 0;
@@ -78,6 +80,10 @@
           }
         }
         return index;
+      },
+      selectFoodList() {
+        let res = [];
+        return res;
       }
     },
     created() {
@@ -133,6 +139,7 @@
       }
     },
     components: {
+      cartcontrol,
       shopcart
     }
   }
