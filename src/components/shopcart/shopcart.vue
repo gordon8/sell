@@ -5,13 +5,14 @@
         <span class="logo-wrap">
           <span class="logo" :class="{'has' : selectFoodList.length > 0}">
             <i class="iconfont icon-cart"></i>
+            <span v-if="selectFoodList.length > 0" class="num">{{totalCount}}</span>
           </span>
         </span>
         <span class="total" :class="{'has' : selectFoodList.length > 0}">¥{{total}}</span>
         <span class="delivery">另需配送费{{deliveryPrice}}元</span>
       </div>
       <div class="content-right">
-        <div class="pay" :class="[total > minPrice ? 'enough': 'not-enough']">{{payContent}}</div>
+        <div class="pay" :class="[total >= minPrice ? 'enough': 'not-enough']">{{payContent}}</div>
       </div>
     </div>
 
@@ -42,13 +43,20 @@
         })
         return total;
       },
+      totalCount() {
+        let totalCount = 0;
+        this.selectFoodList.forEach((item) => {
+          totalCount += item.count;
+        })
+        return totalCount;
+      },
       payContent() {
         let con = '';
         if (this.total === 0) {
           con = `¥${this.minPrice}元起送`;
         } else if (this.total > 0 && this.total < this.minPrice) {
           con = `还差¥${this.minPrice - this.total}起送`;
-        } else if (this.total > this.minPrice) {
+        } else if (this.total >= this.minPrice) {
           con = '去结算';
         }
         return con;
@@ -84,6 +92,7 @@
           background-color: #141d27;
           border-radius: 50%;
           .logo {
+            position: relative;
             display: inline-block;
             width: 100%;
             height: 100%;
@@ -100,6 +109,16 @@
               .icon-cart {
                 color: #fff;
               }
+            }
+            .num {
+              position: absolute;
+              left: 32px;
+              top: -6px;
+              padding: 3px 6px;
+              font-size: 9px;
+              color: #fff;
+              background-color: rgb(240, 20, 20);
+              border-radius: 8px;
             }
           }
         }
