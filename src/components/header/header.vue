@@ -239,7 +239,7 @@
       height: 100%;
       overflow: auto;
       background-color: rgba(7, 17, 27, 0.8);
-      z-index: 10;
+      z-index: 100;
       .detail-wrap {
         width: 100%;
         min-height: 100%;

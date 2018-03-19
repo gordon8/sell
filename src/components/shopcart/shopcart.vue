@@ -3,15 +3,15 @@
     <div class="content">
       <div class="content-left">
         <span class="logo-wrap">
-          <span class="logo">
+          <span class="logo" :class="{'has' : selectFoodList.length > 0}">
             <i class="iconfont icon-cart"></i>
           </span>
         </span>
-        <span class="total">¥{{total}}</span>
+        <span class="total" :class="{'has' : selectFoodList.length > 0}">¥{{total}}</span>
         <span class="delivery">另需配送费{{deliveryPrice}}元</span>
       </div>
       <div class="content-right">
-        <div class="pay">¥{{minPrice}}元起送</div>
+        <div class="pay" :class="[total > minPrice ? 'enough': 'not-enough']">{{payContent}}</div>
       </div>
     </div>
 
@@ -41,6 +41,17 @@
           total += item.price * item.count;
         })
         return total;
+      },
+      payContent() {
+        let con = '';
+        if (this.total === 0) {
+          con = `¥${this.minPrice}元起送`;
+        } else if (this.total > 0 && this.total < this.minPrice) {
+          con = `还差¥${this.minPrice - this.total}起送`;
+        } else if (this.total > this.minPrice) {
+          con = '去结算';
+        }
+        return con;
       }
     }
   }
@@ -54,7 +65,7 @@
     left: 0;
     width: 100%;
     height: 48px;
-    z-index: 100;
+    z-index: 99;
     .content {
       display: flex;
       font-size: 0;
@@ -84,6 +95,12 @@
               line-height: 44px;
               color: rgba(255, 255, 255, 0.4);
             }
+            &.has {
+              background-color: #00a0dc;
+              .icon-cart {
+                color: #fff;
+              }
+            }
           }
         }
         .total {
@@ -95,6 +112,9 @@
           vertical-align: top;
           line-height: 24px;
           border-right: 1px solid rgba(255, 255, 255, 0.1);
+          &.has {
+            color: #fff;
+          }
         }
         .delivery {
           display: inline-block;
@@ -111,7 +131,13 @@
           height: 48px;
           line-height: 48px;
           font-size: 12px;
-          color: rgba(0,0,0, 0.4);
+          font-weight: 700;
+          color: rgba(255,255,255, 0.4);
+          background-color: #2b333b;
+          &.enough {
+            color: #fff;
+            background-color: #00b43c;
+          }
         }
       }
     }
