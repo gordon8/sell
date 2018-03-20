@@ -1,8 +1,8 @@
 <template>
   <div class="cart-control">
     <transition name="move">
-      <div class="cart-decrease">
-        <i @click="removeCount" v-if="food.count > 0" class="inner iconfont icon-removecircle"></i>
+      <div class="cart-decrease" v-show="food.count > 0" >
+        <i @click="removeCount" class="inner iconfont icon-removecircle"></i>
       </div>
     </transition>
     <span v-if="food.count > 0" class="add-num">{{food.count}}</span>
@@ -12,6 +12,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue';
+
   export default {
     name: "cartcontrol",
     props: {
@@ -55,14 +56,25 @@
     .cart-decrease {
       display: inline-block;
       padding: 6px;
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      .inner {
+        transition: all 0.4s linear;
+        transform: rotate(0);
+      }
       &.move-enter-active, &.move-leave-active {
         transition: all 0.4s linear;
       }
-      .inner {
-        transform: rotate(0);
-        transition: all 0.4s linear;
-        transform: rotate(0);
+
+      &.move-enter, &.move-leave-active {
+        opacity: 0;
+        transform: translate3d(24px, 0, 0);
+        .inner {
+          transform: rotate(180deg);
+        }
+
       }
+
       .iconfont {
         padding: 0;
       }
@@ -74,7 +86,6 @@
         }
       }
     }
-
 
     .iconfont {
       display: inline-block;
