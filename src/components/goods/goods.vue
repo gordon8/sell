@@ -29,14 +29,14 @@
                     <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
                   </p>
                 </div>
-                <cartcontrol :food="item"></cartcontrol>
+                <cartcontrol @add="addFood" :food="item"></cartcontrol>
               </li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
-    <shopcart :selectFoodList="selectFoodList" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <shopcart ref="shopcart" :selectFoodList="selectFoodList" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 
 </template>
@@ -143,6 +143,12 @@
 
         this.foodsScroll.scrollToElement(el, 300);
 
+      },
+      addFood(target) {
+        this.drop(target);
+      },
+      drop(target) {
+        this.$refs.shopcart.drop(target);
       }
     },
     components: {

@@ -21,15 +21,18 @@
       }
     },
     methods: {
-      addCount: function () {
+      addCount: function (event) {
         if (this.food.count) {
           this.food.count++;
         } else {
           Vue.set(this.food, 'count', 1);
         }
+        this.$emit('add', event.target);
       },
       removeCount: function () {
-        this.food.count--;
+        if (this.food.count) {
+          this.food.count--;
+        }
       }
     }
   }
@@ -46,7 +49,7 @@
     .add-num {
       display: inline-block;
       padding-top: 6px;
-      width: 12px;
+      /*width: 12px;*/
       text-align: center;
       font-size: 10px;
       line-height: 24px;

@@ -15,6 +15,15 @@
         <div class="pay" :class="[total >= minPrice ? 'enough': 'not-enough']">{{payContent}}</div>
       </div>
     </div>
+    <div class="balls-wrap">
+      <div v-for="(ball, index) in balls" :key="index">
+        <transition name="drop" @before-enter="beforeDrop" @enter="dropping" @after-enter="afterDrop">
+          <div class="ball">
+            <div class="inner"></div>
+          </div>
+        </transition>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -33,6 +42,18 @@
       },
       selectFoodList: {
         type: Array
+      }
+    },
+    data() {
+      return {
+        balls: [
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false},
+          {show: false}
+        ],
+        dropBalls: []
       }
     },
     computed: {
@@ -61,12 +82,35 @@
         }
         return con;
       }
+    },
+    methods: {
+      drop(el) {
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i];
+          if (!ball.show) {
+            ball.show = true;
+            ball.el = el;
+            this.dropBalls.push(ball);
+            return;
+          }
+        }
+      },
+      beforeDrop(el) {
+        console.log('before:',el);
+      },
+      dropping() {
+
+      },
+      afterDrop() {
+
+      }
     }
   }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss" type="text/scss">
   @import "../../common/css/iconfont.css";
+
   .cart-wrap {
     position: fixed;
     bottom: 0;
@@ -151,12 +195,28 @@
           line-height: 48px;
           font-size: 12px;
           font-weight: 700;
-          color: rgba(255,255,255, 0.4);
+          color: rgba(255, 255, 255, 0.4);
           background-color: #2b333b;
           &.enough {
             color: #fff;
             background-color: #00b43c;
           }
+        }
+      }
+    }
+    .balls-wrap {
+      .ball {
+        position: fixed;
+        left: 32px;
+        bottom: 22px;
+        z-index: 100;
+        transition: all 0.4s linear;
+        .inner {
+          width: 16px;
+          height: 16px;
+          background-color: #00a0dc;
+          border-radius: 50%;
+          transition: all 0.4s linear;
         }
       }
     }
