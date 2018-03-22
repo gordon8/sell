@@ -29,7 +29,9 @@
                     <span class="new">¥{{item.price}}</span><span class="old">¥20</span><span v-if="item.oldPrice" class="old">¥{{item.oldPrice}}</span>
                   </p>
                 </div>
-                <cartcontrol @add="addFood" :food="item"></cartcontrol>
+                <div class="control-wrap">
+                  <cartcontrol @add="addFood" :food="item"></cartcontrol>
+                </div>
               </li>
             </ul>
           </li>
@@ -281,6 +283,11 @@
                 text-decoration: line-through;
               }
             }
+          }
+          .control-wrap {
+            position: absolute;
+            right: 0;
+            bottom: 6px;
           }
         }
       }

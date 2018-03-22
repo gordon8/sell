@@ -42,9 +42,6 @@
   @import "../../common/css/iconfont.css";
 
   .cart-control {
-    position: absolute;
-    right: 0;
-    bottom: 6px;
     font-size: 0;
     .add-num {
       display: inline-block;
