@@ -91,7 +91,7 @@
               res.push(food);
             }
           })
-        })
+        });
         return res;
       }
     },
