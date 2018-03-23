@@ -31,11 +31,11 @@
             <div class="title">购物车</div>
             <span @click="emptyCart" class="empty">清空</span>
           </h2>
-          <div class="list-content"  ref="listContent">
+          <div class="list-content" ref="listContent">
             <ul>
               <li v-for="item in selectFoodList" :key="item.name" class="selected-item">
                 <div class="name">{{item.name}}</div>
-                <div class="price">¥{{item.price}}</div>
+                <div class="price">¥{{item.price*item.count}}</div>
                 <div class="control-wrap">
                   <cartcontrol @add="addFood" :food="item"></cartcontrol>
                 </div>
@@ -47,7 +47,7 @@
       </transition>
     </div>
     <transition name="fade">
-      <div class="list-mask" v-show="listShow"></div>
+      <div class="list-mask" @click="hideList" v-show="listShow"></div>
     </transition>
   </div>
 </template>
@@ -132,6 +132,9 @@
       }
     },
     methods: {
+      hideList() {
+        this.fold = true;
+      },
       toggleFold() {
         if (!this.totalCount) {
           return;
@@ -376,8 +379,8 @@
       &.fold-enter-active, &.fold-leave-active {
         transition: all 0.5s ease;
       }
-      &.fold-enter, &.fold-leave-to{
-        transform: translate3d(0,0,0);
+      &.fold-enter, &.fold-leave-to {
+        transform: translate3d(0, 0, 0);
       }
     }
   }
