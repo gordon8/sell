@@ -94,22 +94,7 @@
         return total;
       },
       listShow() {
-        if (!this.totalCount) {
-          this.fold = true;
-          return false;
-        }
         let show = !this.fold;
-        if (show) {
-          this.$nextTick(() => {
-            if (!this.scroll) {
-              this.scroll = new BScroll(this.$refs.listContent, {
-                click: true
-              });
-            } else {
-              this.scroll.refresh();
-            }
-          });
-        }
         return show;
       },
       totalCount() {
@@ -137,14 +122,27 @@
       },
       toggleFold() {
         if (!this.totalCount) {
-          return;
+          this.fold = true;
+          return false;
         }
         this.fold = !this.fold;
+        if (!this.fold) {
+          this.$nextTick(() => {
+            if (!this.scroll) {
+              this.scroll = new BScroll(this.$refs.listContent, {
+                click: true
+              });
+            } else {
+              this.scroll.refresh();
+            }
+          });
+        }
       },
       emptyCart() {
         this.selectFoodList.forEach((item) => {
           item.count = 0;
         });
+        this.fold = true;
       },
       addFood(target) {
         this.drop(target);
