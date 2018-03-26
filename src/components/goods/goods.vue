@@ -15,7 +15,7 @@
           <li v-for="(items, index) in goods" class="foods-items" :key="index" ref="foodItems">
             <h2 class="title">{{items.name}}</h2>
             <ul>
-              <li v-if="items" v-for="item in items.foods" class="foods-item" :key="item.name">
+              <li v-if="items" v-for="item in items.foods" class="foods-item" :key="item.name" @click="selectFood(item)">
                 <div class="cover-wrap">
                   <img :src="item.image" :alt="item.name" width="57" height="57">
                 </div>
@@ -39,6 +39,7 @@
       </div>
     </div>
     <shopcart ref="shopcart" :selectFoodList="selectFoodList" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+    <food :selectedFood="selectedFood" ref="food"></food>
   </div>
 
 </template>
@@ -47,6 +48,7 @@
   import BScroll from 'better-scroll';
   import shopcart from '@/components/shopcart/shopcart'
   import cartcontrol from '@/components/cartcontrol/cartcontrol'
+  import food from '@/components/food/food'
 
 
   const ERR_OK = 0;
@@ -67,7 +69,8 @@
           'special'
         ],
         heightList: [],
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: {}
       }
     },
     computed: {
@@ -99,6 +102,10 @@
       this.init();
     },
     methods: {
+      selectFood(item) {
+        this.selectedFood = item;
+        this.$refs.food.show();
+      },
       init() {
         this.$http.get('/api/goods').then(response => {
           // get body data
@@ -155,7 +162,8 @@
     },
     components: {
       cartcontrol,
-      shopcart
+      shopcart,
+      food
     }
   }
 </script>

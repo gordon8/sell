@@ -94,6 +94,9 @@
         return total;
       },
       listShow() {
+        if (!this.totalCount) {
+          return false;
+        }
         let show = !this.fold;
         return show;
       },
