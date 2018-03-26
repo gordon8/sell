@@ -2,11 +2,11 @@
   <div class="cart-control">
     <transition name="move">
       <div class="cart-decrease" v-show="food.count > 0" >
-        <i @click="removeCount" class="inner iconfont icon-removecircle"></i>
+        <i @click.stop.prevent="removeCount" class="inner iconfont icon-removecircle"></i>
       </div>
     </transition>
     <span v-if="food.count > 0" class="add-num">{{food.count}}</span>
-    <i @click="addCount" class="iconfont icon-addcircle"></i>
+    <i @click.stop.prevent="addCount" class="iconfont icon-addcircle"></i>
   </div>
 </template>
 
