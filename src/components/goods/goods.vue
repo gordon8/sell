@@ -39,7 +39,7 @@
       </div>
     </div>
     <shopcart ref="shopcart" :selectFoodList="selectFoodList" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
-    <food :selectedFood="selectedFood" ref="food"></food>
+    <food @add="addFood" :selectedFood="selectedFood" ref="food"></food>
   </div>
 
 </template>
