@@ -26,12 +26,22 @@
           <h3 class="title">商品介绍</h3>
           <p class="con">{{selectedFood.info}}</p>
         </div>
-        <split></split>
+        <split v-show="selectedFood.info"></split>
         <div class="rating">
           <h3 class="title">商品评价</h3>
           <div class="select-wrap">
-            <ratingselect @select="selectType"></ratingselect>
+            <ratingselect :food="selectedFood" :selectedType="selectedType" :onlyContent="onlyContent" :desc="desc" @select="selectType" @toggle="toggleContent"></ratingselect>
           </div>
+          <ul class="rating-list">
+            <li v-for="item in selectedFood.ratings" class="rating-item">
+              <p class="time">{{item.rateTime}}</p>
+              <p class="msg">{{item.text}}</p>
+              <div class="user">
+                <span class="name">{{item.username}}</span>
+                <img :src="item.avatar" alt="头像" class="face">
+              </div>
+            </li>
+          </ul>
 
         </div>
       </div>
@@ -65,12 +75,16 @@
           positive: '推荐',
           negative: '吐槽'
         },
-        selectedType: ALL
+        selectedType: ALL,
+        onlyContent: true
       }
     },
     methods: {
       selectType(type) {
         this.selectedType = type;
+      },
+      toggleContent() {
+        this.onlyContent = !this.onlyContent;
       },
       addFirst(event) {
         this.$emit('add', event.target);
@@ -78,7 +92,6 @@
       },
       addFood(target) {
         this.$emit('add', target);
-        // this.$refs.shopcart.drop(target);
       },
       show() {
         this.foodShow = true;
@@ -219,6 +232,13 @@
         font-size: 14px;
         color: rgb(7, 17, 27);
       }
+      .select-wrap {
+        padding: 0 18px;
+      }
+      .rating-list{
+        border-top: 1px solid rgba(7,17,27,0.1);
+      }
     }
+
   }
 </style>

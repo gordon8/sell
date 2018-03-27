@@ -1,18 +1,21 @@
 <template>
   <div class="select">
     <div class="select-type">
-      <span @click="select(2)" class="type positive">{{desc.all}}</span>
-      <span class="type positive">{{desc.positive}}</span>
-      <span class="type negative">{{desc.negative}}</span>
+      <span @click="select(2)" class="type positive" :class="{'active': selectedType === 2}">{{desc.all}}<span v-if="food.ratings" class="num">{{food.ratings.length}}</span></span>
+      <span @click="select(0)" class="type positive" :class="{'active': selectedType === 0}">{{desc.positive}}<span v-if="food.ratings" class="num">{{positive.length}}</span></span>
+      <span @click="select(1)" class="type negative" :class="{'active': selectedType === 1}">{{desc.negative}}<span v-if="food.ratings" class="num">{{negative.length}}</span></span>
     </div>
-    <div class="only">
-      <i class="iconfont icon-choseline"></i>
+    <div @click="toggleContent" class="only" :class="{'active': onlyContent}">
+      <i class="iconfont icon-right-f"></i>
       <span class="text">只看有内容的评价</span>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  const ALL = 2;
+  const POSITIVE = 0;
+  const NEGATIVE = 1;
   export default {
     name: "ratingselest",
     props: {
@@ -25,11 +28,35 @@
             negative: '不满意'
           }
         }
+      },
+      food: {
+        type: Object
+      },
+      selectedType: {
+        type: Number
+      },
+      onlyContent: {
+        type: Boolean
+      }
+    },
+    computed: {
+      positive() {
+        return this.food.ratings.filter((item) => {
+          return item.rateType === POSITIVE;
+        });
+      },
+      negative() {
+        return this.food.ratings.filter((item) => {
+          return item.rateType === NEGATIVE;
+        });
       }
     },
     methods: {
       select(type) {
         this.$emit('select', type);
+      },
+      toggleContent() {
+        this.$emit('toggle');
       }
     }
   }
