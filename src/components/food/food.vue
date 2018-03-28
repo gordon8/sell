@@ -30,7 +30,7 @@
         <div class="rating">
           <h3 class="title">商品评价</h3>
           <div class="select-wrap">
-            <ratingselect :food="selectedFood" :selectedType="selectedType" :onlyContent="onlyContent" :desc="desc" @select="selectType" @toggle="toggleContent"></ratingselect>
+            <ratingselect :ratings="selectedFood.ratings" :selectedType="selectedType" :onlyContent="onlyContent" :desc="desc" @select="selectType" @toggle="toggleContent"></ratingselect>
           </div>
           <ul class="rating-list">
             <li v-for="item in selectedFood.ratings" class="rating-item" :key="item.rateTime" v-show="needShow(item.rateType, item.text)">

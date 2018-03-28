@@ -51,9 +51,9 @@
     &.star-48 {
       .star-item {
         display: inline-block;
-        width: 24px;
-        height: 24px;
-        margin-right: 20px;
+        width: 20px;
+        height: 20px;
+        margin-right: 22px;
         &.on {
           @include bg-image(star48_on);
         }
@@ -68,9 +68,9 @@
     &.star-36 {
       .star-item {
         display: inline-block;
-        width: 18px;
-        height: 18px;
-        margin-right: 15px;
+        width: 15px;
+        height: 15px;
+        margin-right: 6px;
         &.on {
           @include bg-image(star36_on);
         }
@@ -85,9 +85,9 @@
     &.star-24 {
       .star-item {
         display: inline-block;
-        width: 12px;
-        height: 12px;
-        margin-right: 10px;
+        width: 10px;
+        height: 10px;
+        margin-right: 3px;
         &.on {
           @include bg-image(star24_on);
         }

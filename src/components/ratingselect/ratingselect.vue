@@ -1,9 +1,9 @@
 <template>
   <div class="select">
     <div class="select-type">
-      <span @click="select(2)" class="type positive" :class="{'active': selectedType === 2}">{{desc.all}}<span v-if="food.ratings" class="num">{{food.ratings.length}}</span></span>
-      <span @click="select(0)" class="type positive" :class="{'active': selectedType === 0}">{{desc.positive}}<span v-if="food.ratings" class="num">{{positive.length}}</span></span>
-      <span @click="select(1)" class="type negative" :class="{'active': selectedType === 1}">{{desc.negative}}<span v-if="food.ratings" class="num">{{negative.length}}</span></span>
+      <span @click="select(2)" class="type positive" :class="{'active': selectedType === 2}">{{desc.all}}<span v-if="ratings" class="num">{{ratings.length}}</span></span>
+      <span @click="select(0)" class="type positive" :class="{'active': selectedType === 0}">{{desc.positive}}<span v-if="ratings" class="num">{{positive.length}}</span></span>
+      <span @click="select(1)" class="type negative" :class="{'active': selectedType === 1}">{{desc.negative}}<span v-if="ratings" class="num">{{negative.length}}</span></span>
     </div>
     <div @click="toggleContent" class="only" :class="{'active': onlyContent}">
       <i class="iconfont icon-right-f"></i>
@@ -29,8 +29,8 @@
           }
         }
       },
-      food: {
-        type: Object
+      ratings: {
+        type: Array
       },
       selectedType: {
         type: Number
@@ -41,12 +41,12 @@
     },
     computed: {
       positive() {
-        return this.food.ratings.filter((item) => {
+        return this.ratings.filter((item) => {
           return item.rateType === POSITIVE;
         });
       },
       negative() {
-        return this.food.ratings.filter((item) => {
+        return this.ratings.filter((item) => {
           return item.rateType === NEGATIVE;
         });
       }
